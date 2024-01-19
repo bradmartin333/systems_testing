@@ -62,7 +62,7 @@ class TextField:
 
 
 class ActionButton:
-    value = 0
+    num_clicks = 0
 
     color = BLUE
     border_color = BLACK
@@ -97,4 +97,4 @@ class ActionButton:
 
         if mouse_over and ws.left_click_pressed:
             self.action()
-            self.value += 1
+            self.num_clicks += 1
