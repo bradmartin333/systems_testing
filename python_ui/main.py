@@ -104,14 +104,13 @@ def test_function():
 ws = WindowState()
 ws.text_fields = [
     TextField("HELLO SMALL", Vector2(10, 10), 20),
-    TextField("HELLO MEDIUM", Vector2(10, 50), 40),
     TextField("HELLO LARGE", Vector2(10, 100), 60),
 ]
 ws.button_actions.append(
     ActionButton(TextField("HELLO MEDIUM", Vector2(10, 50), 40), test_function)
 )
 
-init_window(ws.wid, ws.hgt, "REM Rest")
+init_window(ws.wid, ws.hgt, "Systems UI")
 
 while not window_should_close():
     ws.update()
