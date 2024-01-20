@@ -7,8 +7,8 @@ def map_value(value, in_min, in_max, out_min, out_max):
 
 class WindowState:
     def __init__(self):
-        self.wid = 800
-        self.hgt = 450
+        self.wid = 1200
+        self.hgt = 800
         self.mouse_pos = Vector2(-1, -1)
         self.left_click_down = False
         self.left_click_pressed = False

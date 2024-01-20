@@ -18,12 +18,11 @@ ws.text_fields = [
 ws.action_buttons.append(
     ActionButton(TextField("HELLO MEDIUM", Vector2(20, 50), 40), test_function)
 )
-ws.line_plots.append(
-    LinePlot("Test", "mV", Rectangle(10, 200, ws.wid - 20, 100), BLUE, WHITE)
-)
-ws.line_plots.append(
-    LinePlot("Test 2", "kJ", Rectangle(10, 300, ws.wid - 20, 100), PURPLE, WHITE)
-)
+ws.line_plots = [
+    LinePlot("Test", "mV", Rectangle(10, 200, ws.wid - 20, 100), BLUE, WHITE),
+    LinePlot("Test 2", "kJ", Rectangle(10, 300, ws.wid - 20, 100), PURPLE, WHITE),
+]
+
 
 init_window(ws.wid, ws.hgt, "Systems UI")
 set_target_fps(60)
