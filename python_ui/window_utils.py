@@ -125,12 +125,10 @@ class LinePlot:
 
     def send_value(self, val: float):
         num_points = len(self.data)
-        if (
-            num_points > 0
-            and self.scaled_rect != None
-            and num_points > self.scaled_rect.width
-        ):
-            self.data.pop(0)
+        if num_points > 0 and self.scaled_rect != None:
+            while num_points > self.scaled_rect.width:
+                self.data.pop(0)
+                num_points = len(self.data)
         self.data.append(val)
 
     def send_list(self, vals: list[float]):
@@ -138,10 +136,10 @@ class LinePlot:
             self.send_value(v)
 
     def draw(self, ws: WindowState):
-        text_size = int(20 * ws.max_dpi_scale)
+        text_size = int(20 * ws.dpi_scale.x)
         self.scaled_rect = Rectangle(
-            self.rect.x,
-            self.rect.y,
+            self.rect.x * ws.dpi_scale.x,
+            self.rect.y * ws.dpi_scale.y,
             self.rect.width * ws.dpi_scale.x,
             self.rect.height * ws.dpi_scale.y,
         )
@@ -168,42 +166,45 @@ class LinePlot:
 
             draw_line_strip(vectors, num_points, self.fore_color)
 
-            text_x = int(self.scaled_rect.x)
-
             text_title_y = int(self.scaled_rect.y)
             text_title_wid = measure_text(self.title, text_size)
+            text_title_x = int(
+                (self.scaled_rect.x + self.scaled_rect.width) / 2.0
+                - text_title_wid / 2.0
+            )
             draw_rectangle(
-                text_x,
+                text_title_x,
                 text_title_y,
                 text_title_wid,
                 text_size,
                 color_alpha(self.back_color, 0.8),
             )
-            draw_text(self.title, text_x, text_title_y, text_size, self.text_color)
+            draw_text(
+                self.title, text_title_x, text_title_y, text_size, self.text_color
+            )
+
+            min_max_text_x = int(self.scaled_rect.x)
 
             str_max_y = f"{round(max_y, 3)} {self.units}"
-            text_max_y = int(self.scaled_rect.y + (10 + text_size) * ws.max_dpi_scale)
+            text_max_y = int(self.scaled_rect.y)
             text_max_wid = measure_text(str_max_y, text_size)
             draw_rectangle(
-                text_x,
+                min_max_text_x,
                 text_max_y,
                 text_max_wid,
                 text_size,
                 color_alpha(self.back_color, 0.8),
             )
-            draw_text(str_max_y, text_x, text_max_y, text_size, self.text_color)
+            draw_text(str_max_y, min_max_text_x, text_max_y, text_size, self.text_color)
 
             str_min_y = f"{round(min_y, 3)} {self.units}"
-            text_min_y = int(
-                (self.scaled_rect.y + self.scaled_rect.height)
-                - text_size * ws.max_dpi_scale
-            )
+            text_min_y = int((self.scaled_rect.y + self.scaled_rect.height) - text_size)
             text_min_wid = measure_text(str_min_y, text_size)
             draw_rectangle(
-                text_x,
+                min_max_text_x,
                 text_min_y,
                 text_min_wid,
                 text_size,
                 color_alpha(self.back_color, 0.8),
             )
-            draw_text(str_min_y, text_x, text_min_y, text_size, self.text_color)
+            draw_text(str_min_y, min_max_text_x, text_min_y, text_size, self.text_color)
