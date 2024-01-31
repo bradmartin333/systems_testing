@@ -11,7 +11,7 @@ void main() {
 
   List<double> dataToFilter = [];
   for (var i = 0; i < maxIdx; i++) {
-    dataToFilter.add(rng.nextDouble());
+    dataToFilter.add(rng.nextDouble() * 256);
   }
 
   Butterworth butterworth = Butterworth();
@@ -28,8 +28,10 @@ void main() {
 
   WindowState ws = WindowState();
   ws.linePlots = [
-    LinePlot(Rectangle(10, 200, ws.wid - 20, 100), Color.blue, Color.white),
-    LinePlot(Rectangle(10, 300, ws.wid - 20, 100), Color.pink, Color.white),
+    LinePlot(Rectangle(10, 10, ws.wid - 20, ws.hgt / 2.0 - 15), Color.blue,
+        Color.white),
+    LinePlot(Rectangle(10, ws.hgt / 2.0 + 5, ws.wid - 20, ws.hgt / 2.0 - 15),
+        Color.pink, Color.white),
   ];
 
   initWindow(
