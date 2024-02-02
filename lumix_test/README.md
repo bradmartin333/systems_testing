@@ -1,5 +1,5 @@
 # Run example app outside download directory
-1. 1. Install VS2022 Desktop development for C++ defaults + MFC option
+1. Install VS2022 Desktop development for C++ defaults + MFC option
 1. [Download SDK from Lumix](https://av.jpn.support.panasonic.com/support/global/cs/soft/tool/sdk.html)
 1. In VS2022, create new `Project from existing code` and use the `LumixRemoteControlLibraryBeta1.00\TetherSDKSample\LiveView01` directory
 	- Check box for MFC
